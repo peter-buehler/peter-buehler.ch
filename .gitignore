@@ -1,0 +1,17 @@
+# Alles in diesem Repo ist oeffentlich (Repo und Website).
+# Interne Dateien bleiben lokal.
+CLAUDE.md
+*.md
+!README.md
+.claude/
+.claudeignore
+*.pdf
+*.docx
+.env*
+*.key
+*.pem
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log

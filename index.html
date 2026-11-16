@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peter Bühler · Experte Gebäudeautomation</title>
+  <meta name="google-site-verification" content="smjO_TVEaQ7ZjA7LQC_Kjmhv56ADf7ALBdX0-ZuwZ28" />
+
+  <!-- SEO -->
+  <meta name="description" content="Peter Bühler – Experte Gebäudeautomation und Technischer Koordinator. Planung, Koordination und Beratung rund um BMS, HVAC und Gebäudesysteme. Luzern, Schweiz.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://peter-buehler.ch/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Peter Bühler · Experte Gebäudeautomation">
+  <meta property="og:description" content="Planung · Koordination · Systeme · Beratung. Elektrotechniker HF, dipl. NDS HF Betriebswirtschaft. Luzern, Schweiz.">
+  <meta property="og:url" content="https://peter-buehler.ch/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://peter-buehler.ch/og-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="de_CH">
+  <meta property="og:site_name" content="Peter Bühler Portfolio">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Peter Bühler · Experte Gebäudeautomation">
+  <meta name="twitter:description" content="Planung · Koordination · Systeme · Beratung. Luzern, Schweiz.">
+  <meta name="twitter:image" content="https://peter-buehler.ch/og-preview.jpg">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Peter Bühler",
+    "jobTitle": "Experte Gebäudeautomation",
+    "description": "Elektrotechniker HF, dipl. NDS HF Betriebswirtschaft. Experte für Gebäudeautomation, Planung und technische Koordination.",
+    "url": "https://peter-buehler.ch",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Luzern",
+      "addressCountry": "CH"
+    },
+    "knowsAbout": ["Gebäudeautomation", "BMS", "HVAC", "Technische Koordination", "Gebäudesysteme"]
+  }
+  </script>
+
+  <style>
+    /* Schriften lokal eingebunden (SIL Open Font License), keine Anfrage an Dritte */
+    @font-face { font-family:'Orbitron'; font-style:normal; font-weight:400 900; font-display:swap; src:url('fonts/orbitron-variable.woff2') format('woff2'); }
+    @font-face { font-family:'Inter'; font-style:normal; font-weight:300 600; font-display:swap; src:url('fonts/inter-variable.woff2') format('woff2'); }
+    @font-face { font-family:'Space Mono'; font-style:normal; font-weight:400; font-display:swap; src:url('fonts/space-mono-normal-400.woff2') format('woff2'); }
+    @font-face { font-family:'Space Mono'; font-style:normal; font-weight:700; font-display:swap; src:url('fonts/space-mono-normal-700.woff2') format('woff2'); }
+    @font-face { font-family:'Space Mono'; font-style:italic; font-weight:400; font-display:swap; src:url('fonts/space-mono-italic-400.woff2') format('woff2'); }
+    :root {
+      --bg:         #040609;
+      --surface:    #080c14;
+      --border:     #111925;
+      --border-hi:  #1a2d45;
+      --cyan:       #00d4ff;
+      --cyan-dim:   rgba(0,212,255,0.07);
+      --cyan-glow:  rgba(0,212,255,0.22);
+      --green:      #00e5a0;
+      --amber:      #ffaa00;
+      --amber-dim:  rgba(255,170,0,0.10);
+      --text:       #96b4c8;
+      --text-hi:    #daeaf8;
+      --text-dim:   #6a8aa3;
+      --text-muted: #5f7d97;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── STATUSBAR ── */
+    #statusbar {
+      position: fixed; top:0; left:0; right:0; z-index:200;
+      height: 40px;
+      background: rgba(4,6,9,0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .sb-left  { display:flex; align-items:center; gap:20px; }
+    .sb-right { display:flex; align-items:center; gap:20px; }
+    .sb-dot {
+      width:6px; height:6px; border-radius:50%;
+      background: var(--green); box-shadow: 0 0 8px var(--green);
+      animation: blink-dot 2.5s ease-in-out infinite;
+    }
+    @keyframes blink-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .sb-tag { color:var(--cyan); }
+    .sb-ok  { color:var(--green); }
+
+    /* ── CANVAS ── */
+    #bg-canvas {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      z-index:0; pointer-events:none;
+    }
+
+    /* ── LAYOUT ── */
+    main { position:relative; z-index:1; padding-top:40px; }
+    .wrap { max-width:1080px; margin:0 auto; padding:0 36px; }
+    section { padding:88px 0; border-top:1px solid var(--border); position:relative; }
+    .sec-label {
+      font-family:'Space Mono',monospace; font-size:10px;
+      letter-spacing:0.22em; color:var(--cyan); text-transform:uppercase;
+      margin-bottom:10px; opacity:0.65;
+    }
+    .sec-label::before { content:'// '; opacity:0.5; }
+    h2 {
+      font-family:'Orbitron',sans-serif;
+      font-size:clamp(18px,2.4vw,26px); font-weight:700;
+      color:var(--text-hi); letter-spacing:0.06em; margin-bottom:40px;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height:100vh;
+      display:flex; flex-direction:column;
+      padding:0 0 100px; border-top:none;
+    }
+    #hero > .wrap {
+      flex:1; width:100%;
+      display:flex; align-items:center;
+    }
+
+    /* Floating hashtag cloud — overlaid on panorama */
+    .hero-tagcloud {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 0; right: 0;
+      overflow: hidden;
+      z-index: 3;
+    }
+    .hero-tagcloud .htag {
+      position: absolute;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      opacity: 0;
+      white-space: nowrap;
+      animation: htag-float 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes htag-float {
+      0%   { opacity:0; transform:translateY(6px); }
+      15%  { opacity:0.55; transform:translateY(0); }
+      75%  { opacity:0.35; transform:translateY(-4px); }
+      90%  { opacity:0; transform:translateY(-8px); }
+      100% { opacity:0; }
+    }
+
+    /* ── HERO GRAPHIC ICONS ── */
+    .htag-svg {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      animation: htag-float 11s ease-in-out infinite;
+    }
+    .htag-svg svg { display:block; }
+    .ga-spin  { animation: ga-spin  7s linear infinite;
+                transform-origin: 50% 50%; transform-box: fill-box; }
+    .ga-spin-s{ animation: ga-spin  10s  linear infinite;
+                transform-origin: 50% 50%; transform-box: fill-box; }
+    .ga-needle{ animation: ga-needle 5s ease-in-out infinite alternate;
+                transform-origin: 50% 100%; transform-box: fill-box; }
+    .ga-blink { animation: ga-blink 2.4s ease-in-out infinite; }
+    .ga-dash  { animation: ga-dash  4s linear infinite; }
+    .ga-pulse { animation: ga-pulse 4s ease-in-out infinite;
+                transform-origin: 50% 50%; transform-box: fill-box; }
+    .ga-w1    { animation: ga-wave  3.5s ease-out infinite; }
+    .ga-w2    { animation: ga-wave  3.5s ease-out 1.15s infinite; }
+    .ga-w3    { animation: ga-wave  3.5s ease-out 2.3s  infinite; }
+    .ga-flow  { animation: ga-flow  4s linear infinite; }
+    .ga-tog   { animation: ga-tog   5s ease-in-out infinite alternate; }
+    @keyframes ga-spin   { to   { transform: rotate(360deg); } }
+    @keyframes ga-needle { from { transform: rotate(-32deg); }
+                           to   { transform: rotate(32deg);  } }
+    @keyframes ga-blink  { 0%,100%{opacity:1} 50%{opacity:0.1} }
+    @keyframes ga-dash   { from { stroke-dashoffset: 48; } to { stroke-dashoffset: 0; } }
+    @keyframes ga-pulse  { 0%,100%{transform:scale(0.85);opacity:0.3}
+                           50%   {transform:scale(1.15);opacity:1} }
+    @keyframes ga-wave   { 0%  {transform:scale(0.2);opacity:0.9}
+                           100%{transform:scale(1);  opacity:0;  } }
+    @keyframes ga-flow   { from { stroke-dashoffset: 32; } to { stroke-dashoffset: 0; } }
+    @keyframes ga-tog    { from { transform: translateX(0px); }
+                           to   { transform: translateX(9px); } }
+
+    /* Hero main: text left, photo right */
+    .hero-main {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .hero-text { flex: 1; }
+
+    .hero-name {
+      font-family:'Orbitron',sans-serif;
+      font-size:clamp(48px,8.5vw,96px); font-weight:900;
+      line-height:0.95; letter-spacing:-0.02em;
+      color:var(--text-hi); margin-bottom:10px;
+    }
+    .hero-name span { color:var(--cyan); }
+
+    .hero-title {
+      font-family:'Orbitron',sans-serif;
+      font-size:clamp(11px,1.5vw,15px); font-weight:400;
+      color:var(--text-dim); letter-spacing:0.3em;
+      text-transform:uppercase; margin-bottom:6px;
+    }
+    .hero-sub {
+      font-family:'Space Mono',monospace;
+      font-size:12px; color:var(--text-dim);
+      letter-spacing:0.12em; margin-bottom:36px;
+    }
+
+    .hero-tagline {
+      font-size:17px; font-weight:300; color:var(--text);
+      border-left:2px solid var(--cyan); padding-left:16px;
+      margin-bottom:32px; min-height:26px; max-width:500px;
+    }
+    .cursor {
+      display:inline-block; width:2px; height:1em;
+      background:var(--cyan); vertical-align:text-bottom;
+      animation:blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-meta {
+      font-family:'Space Mono',monospace; font-size:11px;
+      color:var(--text-dim); letter-spacing:0.07em;
+      line-height:2.2; margin-bottom:4px;
+    }
+    .hero-meta .row { display:flex; align-items:center; gap:10px; }
+    .hero-meta .row::before {
+      content:'';
+      display:inline-block; width:4px; height:4px;
+      border-radius:50%; background:var(--cyan); opacity:0.4; flex-shrink:0;
+    }
+
+    .hero-nonetwork {
+      display:inline-flex; align-items:center; gap:10px;
+      font-family:'Space Mono',monospace; font-size:11px;
+      color:var(--text-dim); letter-spacing:0.06em;
+      padding:10px 14px;
+      border:1px solid var(--border);
+      border-left:2px solid var(--amber);
+      margin-bottom:2px;
+    }
+    .hero-nonetwork span { color:var(--amber); }
+
+    .hero-contact {
+      font-family:'Space Mono',monospace; font-size:12px;
+      color:var(--text-dim); letter-spacing:0.07em;
+      display:flex; align-items:center; gap:10px;
+    }
+    .hero-contact a {
+      color:var(--cyan); text-decoration:none;
+      border-bottom:1px solid rgba(0,212,255,0.25);
+      transition:border-color 0.15s;
+    }
+    .hero-contact a:hover { border-color:var(--cyan); }
+    .hero-contact::before {
+      content:'';
+      display:inline-block; width:4px; height:4px;
+      border-radius:50%; background:var(--cyan); opacity:0.4;
+    }
+
+    /* Photo */
+    .hero-photo {
+      flex-shrink:0;
+      margin-top:8px;
+    }
+    .hero-photo img {
+      width:110px; height:110px;
+      border-radius:50%;
+      object-fit:cover;
+      border:2px solid var(--border-hi);
+      box-shadow:0 0 24px rgba(0,212,255,0.12);
+      display:block;
+    }
+    .hero-photo-placeholder {
+      width:110px; height:110px;
+      border-radius:50%;
+      border:1px dashed var(--border-hi);
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Space Mono',monospace; font-size:9px;
+      color:var(--text-muted); letter-spacing:0.1em; text-align:center;
+      line-height:1.6;
+    }
+
+    .hero-scroll {
+      position:absolute; bottom:36px; left:50%;
+      transform:translateX(-50%);
+      font-family:'Space Mono',monospace; font-size:9px;
+      color:var(--text-muted); letter-spacing:0.3em; text-transform:uppercase; text-align:center;
+    }
+    .hero-scroll::after {
+      content:''; display:block; width:1px; height:34px;
+      background:linear-gradient(to bottom,var(--border-hi),transparent);
+      margin:8px auto 0;
+    }
+
+    /* ── PROFIL ── */
+    .lead {
+      font-size:18px; font-weight:300; color:var(--text-hi);
+      line-height:1.75; max-width:700px; margin-bottom:22px;
+    }
+    .body-text { max-width:700px; line-height:1.85; color:var(--text); }
+
+    /* ── CONFIG CARDS ── */
+    .config-grid {
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(295px,1fr)); gap:14px;
+    }
+    .config-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-left:2px solid var(--cyan); padding:20px 22px;
+      transition:background 0.2s, border-color 0.2s;
+    }
+    .config-card:hover { background:var(--cyan-dim); border-color:var(--border-hi); }
+    .cfg-key {
+      font-family:'Space Mono',monospace; font-size:10px;
+      letter-spacing:0.18em; color:var(--cyan); text-transform:uppercase;
+      margin-bottom:6px; opacity:0.75;
+    }
+    .cfg-val  { font-size:14px; font-weight:500; color:var(--text-hi); margin-bottom:5px; }
+    .cfg-desc { font-size:13px; color:var(--text-dim); line-height:1.55; }
+
+    /* ── KPI ── */
+    .kpi-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;
+    }
+    .kpi-card {
+      background:var(--surface); border:1px solid var(--border);
+      padding:28px 24px 24px; position:relative; overflow:hidden;
+    }
+    .kpi-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    }
+    .kpi-card:nth-child(1)::before { background:linear-gradient(90deg,var(--cyan),transparent); }
+    .kpi-card:nth-child(2)::before { background:linear-gradient(90deg,var(--green),transparent); }
+    .kpi-card:nth-child(3)::before { background:linear-gradient(90deg,var(--amber),transparent); }
+    .kpi-card:nth-child(4)::before { background:linear-gradient(90deg,var(--cyan),transparent); }
+    .kpi-val {
+      font-family:'Orbitron',sans-serif;
+      font-size:56px; font-weight:900; line-height:1; margin-bottom:8px;
+    }
+    .kpi-card:nth-child(1) .kpi-val { color:var(--cyan); text-shadow:0 0 30px var(--cyan-glow); }
+    .kpi-card:nth-child(2) .kpi-val { color:var(--green); }
+    .kpi-card:nth-child(3) .kpi-val { color:var(--amber); }
+    .kpi-card:nth-child(4) .kpi-val { color:var(--cyan); }
+    .kpi-unit {
+      font-family:'Space Mono',monospace; font-size:10px;
+      color:var(--text-dim); letter-spacing:0.14em; text-transform:uppercase; margin-bottom:4px;
+    }
+    .kpi-desc { font-size:12px; color:var(--text-dim); line-height:1.45; }
+
+    /* ── PANORAMA BANNER ── */
+    .panorama-banner {
+      position: relative;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .panorama-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .panorama-banner::before,
+    .panorama-banner::after {
+      content: '';
+      position: absolute; left: 0; right: 0; z-index: 2;
+      height: 60px;
+      pointer-events: none;
+    }
+    .panorama-banner::before {
+      top: 0;
+      background: linear-gradient(to bottom, var(--bg), transparent);
+    }
+    .panorama-banner::after {
+      bottom: 0;
+      background: linear-gradient(to top, var(--bg), transparent);
+    }
+
+    /* ── PROJEKTE ── */
+    .proj-scroll { overflow-x:auto; }
+    .proj-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .proj-table thead tr { border-bottom:1px solid var(--border-hi); }
+    .proj-table th {
+      font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.2em;
+      text-transform:uppercase; color:var(--text-dim);
+      padding:10px 16px; text-align:left; font-weight:400; white-space:nowrap;
+    }
+    .proj-table td { padding:13px 16px; border-bottom:1px solid var(--border); vertical-align:middle; }
+    .proj-table tbody tr { transition:background 0.12s; cursor:default; }
+    .proj-table tbody tr:hover { background:rgba(0,212,255,0.03); }
+    .proj-name { font-weight:500; color:var(--text-hi); white-space:nowrap; }
+    .proj-ctx  { color:var(--text); max-width:280px; }
+    .proj-role { color:var(--text-dim); max-width:220px; }
+    .badge {
+      display:inline-flex; align-items:center; gap:5px;
+      font-family:'Space Mono',monospace; font-size:9px;
+      letter-spacing:0.12em; white-space:nowrap; padding:3px 8px; border-radius:2px;
+    }
+    .badge-dot { width:5px; height:5px; border-radius:50%; }
+    .badge-live {
+      background:rgba(0,229,160,0.10); color:var(--green);
+      border:1px solid rgba(0,229,160,0.25);
+    }
+    .badge-live .badge-dot {
+      background:var(--green); box-shadow:0 0 6px var(--green);
+      animation:blink-dot 2s ease-in-out infinite;
+    }
+    .badge-done {
+      background:rgba(30,51,72,0.5); color:var(--text-dim); border:1px solid var(--border);
+    }
+    .badge-done .badge-dot { background:var(--text-dim); opacity:0.5; }
+
+    /* ── KARRIERE ── */
+    .career-bus { position:relative; padding-left:52px; }
+    .career-bus::before {
+      content:''; position:absolute;
+      left:18px; top:12px; bottom:12px; width:2px;
+      background:linear-gradient(to bottom, var(--cyan) 0%, var(--border-hi) 60%, var(--amber) 100%);
+    }
+    .c-node { position:relative; margin-bottom:8px; }
+    .c-node::before {
+      content:''; position:absolute;
+      left:-40px; top:21px; width:10px; height:10px;
+      border-radius:50%; border:2px solid var(--border-hi); background:var(--bg);
+      transition:border-color 0.25s, box-shadow 0.25s; z-index:1;
+    }
+    .c-node:hover::before { border-color:var(--cyan); box-shadow:0 0 10px var(--cyan-glow); }
+    .c-node.active::before {
+      border-color:var(--cyan); background:var(--cyan); box-shadow:0 0 12px var(--cyan-glow);
+    }
+    .c-node.fundament::before { border-color:var(--amber); background:var(--amber-dim); }
+    .c-item {
+      background:var(--surface); border:1px solid var(--border);
+      padding:18px 22px; transition:border-color 0.2s;
+    }
+    .c-item:hover { border-color:var(--border-hi); }
+    .c-node.active .c-item    { border-left:2px solid var(--cyan); }
+    .c-node.fundament .c-item { border-left:2px solid var(--amber); }
+    .c-period {
+      font-family:'Space Mono',monospace; font-size:10px;
+      letter-spacing:0.12em; margin-bottom:3px;
+    }
+    .c-node.active    .c-period { color:var(--cyan); }
+    .c-node.fundament .c-period { color:var(--amber); }
+    .c-node:not(.active):not(.fundament) .c-period { color:var(--text-dim); }
+    .c-role    { font-size:14px; font-weight:500; color:var(--text-hi); margin-bottom:2px; }
+    .c-company { font-size:13px; color:var(--text-dim); }
+    .c-level   {
+      margin-top:6px;
+      font-family:'Space Mono',monospace; font-size:9px;
+      letter-spacing:0.16em; color:var(--text-muted); text-transform:uppercase;
+    }
+
+    /* ── SERVICES ── */
+    .svc-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:14px; }
+    .svc-card {
+      background:var(--surface); border:1px solid var(--border);
+      padding:22px; display:flex; gap:16px; align-items:flex-start;
+      transition:border-color 0.2s;
+    }
+    .svc-card:hover { border-color:var(--border-hi); }
+    .svc-id {
+      font-family:'Space Mono',monospace; font-size:10px;
+      color:var(--cyan); background:var(--cyan-dim);
+      border:1px solid rgba(0,212,255,0.15);
+      padding:5px 9px; white-space:nowrap; flex-shrink:0; letter-spacing:0.05em;
+    }
+    .svc-title { font-size:14px; font-weight:500; color:var(--text-hi); margin-bottom:4px; }
+    .svc-desc  { font-size:13px; color:var(--text-dim); line-height:1.5; }
+
+    /* ── QUOTES ── */
+    .quote-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:16px; }
+    .quote-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-top:2px solid var(--border-hi); padding:24px 22px; position:relative;
+    }
+    .quote-card::before {
+      content:'"'; position:absolute; top:14px; right:20px;
+      font-family:Georgia,serif; font-size:52px; color:#1e3348; line-height:1;
+    }
+    .q-text {
+      font-size:14px; font-style:italic; color:var(--text);
+      line-height:1.7; margin-bottom:16px;
+    }
+    .q-src { font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim); }
+
+    /* ── HASHTAGS SECTION ── */
+    #hashtags {
+      padding:64px 0 80px;
+      border-top:1px solid var(--border);
+    }
+    .hashtag-cloud {
+      display:flex; flex-wrap:wrap; gap:8px 10px;
+      max-width:960px;
+    }
+    .htag-item {
+      font-family:'Space Mono',monospace; font-size:11px;
+      color:var(--text-dim); letter-spacing:0.04em;
+      padding:4px 10px; border:1px solid var(--border);
+      border-radius:2px; transition:color 0.15s, border-color 0.15s;
+      cursor:default;
+    }
+    .htag-item:hover { color:var(--cyan); border-color:rgba(0,212,255,0.3); }
+
+    /* ── KONTAKT ── */
+    .no-network {
+      display:inline-flex; align-items:center; gap:10px;
+      font-family:'Space Mono',monospace; font-size:11px;
+      color:var(--text-dim); letter-spacing:0.06em;
+      padding:12px 18px; border:1px solid var(--border);
+      border-left:2px solid var(--amber); margin-bottom:20px;
+    }
+    .no-network span { color:var(--amber); }
+    .mail-link {
+      display:inline-flex; align-items:center; gap:14px;
+      font-family:'Space Mono',monospace; font-size:15px;
+      color:var(--cyan); text-decoration:none;
+      padding:16px 24px; border:1px solid rgba(0,212,255,0.22);
+      background:var(--cyan-dim); transition:background 0.2s, border-color 0.2s;
+      letter-spacing:0.04em;
+    }
+    .mail-link::before {
+      content:'MAIL://'; font-size:10px; color:var(--text-dim); letter-spacing:0.14em;
+    }
+    .mail-link:hover { background:rgba(0,212,255,0.13); border-color:rgba(0,212,255,0.5); }
+    .footer {
+      margin-top:80px; padding-top:22px; border-top:1px solid var(--border);
+      display:flex; justify-content:space-between; align-items:center;
+      flex-wrap:wrap; gap:12px;
+      font-family:'Space Mono',monospace; font-size:10px;
+      color:var(--text-muted); letter-spacing:0.08em;
+    }
+    .footer a { color:var(--cyan); text-decoration:none; opacity:0.55; transition:opacity 0.15s; }
+    .footer a:hover { opacity:1; }
+
+    /* ── ANIMATIONS ── */
+    .anim {
+      opacity:0; transform:translateY(22px);
+      transition:opacity 0.6s ease, transform 0.6s ease;
+    }
+    .anim.in { opacity:1; transform:translateY(0); }
+    .anim-x {
+      opacity:0; transform:translateX(-18px);
+      transition:opacity 0.5s ease, transform 0.5s ease;
+    }
+    .anim-x.in { opacity:1; transform:translateX(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:720px) {
+      .wrap { padding:0 20px; }
+      section { padding:64px 0; }
+      .sb-right { display:none; }
+      .hero-main { flex-direction:column-reverse; gap:24px; }
+      .hero-photo img, .hero-photo-placeholder { width:80px; height:80px; }
+      .proj-table th:nth-child(3),
+      .proj-table td:nth-child(3) { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- STATUSBAR -->
+<div id="statusbar">
+  <div class="sb-left">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="sb-dot"></div>
+      <span class="sb-tag">SYS::CV-BUEHLER-1.0</span>
+    </div>
+    <span>Gebäudeautomation · Experte</span>
+  </div>
+  <div class="sb-right">
+    <span>Luzern · CH</span>
+    <span class="sb-ok">STATUS: ONLINE</span>
+    <span id="sb-clock" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--text-dim)"></span>
+  </div>
+</div>
+
+<canvas id="bg-canvas"></canvas>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+
+    <!-- Panorama direkt unter Statusbar, Hashtag-Animation darüber -->
+    <div class="panorama-banner">
+      <img src="luzern-resilienz.webp" alt="Luzern — Gebäudeautomation trifft Resilienz" loading="lazy">
+      <div class="hero-tagcloud" id="hero-tagcloud"></div>
+    </div>
+
+    <div class="wrap">
+      <div class="hero-main">
+        <div class="hero-text">
+          <h1 class="hero-name">PETER<br><span>BÜHLER</span></h1>
+          <div class="hero-title">Experte Gebäudeautomation</div>
+          <div class="hero-title" style="margin-top:2px">Technischer Koordinator</div>
+          <div class="hero-sub" style="margin-top:10px">Planung · Koordination · Systeme · Beratung</div>
+          <div class="hero-tagline" id="typewriter"></div>
+
+          <div class="hero-meta">
+            <div class="row">Elektrotechniker HF · dipl. NDS HF Betriebswirtschaft · Luzern · Schweiz</div>
+          </div>
+
+          <div class="hero-nonetwork" style="margin-top:4px">
+            <span>// INFO:</span> Kein LinkedIn · Kein Xing · Direkter Kontakt bevorzugt
+          </div>
+        </div>
+
+        <!-- Foto: foto.jpg in selben Ordner ablegen -->
+        <div class="hero-photo">
+          <img src="Portrait.jpg" alt="Peter Bühler"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="hero-photo-placeholder" style="display:none">FOTO<br>hier</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ── WAS ICH MACHE ── -->
+  <section id="profil">
+    <div class="wrap">
+      <div class="sec-label anim">Systembeschreibung</div>
+      <h2 class="anim">Was ich mache</h2>
+      <p class="lead anim">
+        30 Jahre Gebäudeautomation, jede Stufe selbst durchlaufen. Ich spreche die
+        Sprache des Monteurs, des Programmierers, des Planers und der Bauherrschaft.
+      </p>
+      <p class="body-text anim">
+        Heute leite ich die Gebäudeautomation und Systeme in der LUKS Gruppe, einer
+        der grössten Spitalgruppen der Schweiz. Aktuell im Aufbau: Neubau Luzern,
+        neue Spitäler in Wolhusen, Sursee und Nidwalden.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── WOFÜR ICH STEHE ── -->
+  <section id="haltung">
+    <div class="wrap">
+      <div class="sec-label anim">Systemparameter</div>
+      <h2 class="anim">Wofür ich stehe</h2>
+      <div class="config-grid">
+        <div class="config-card anim">
+          <div class="cfg-key">SYSTEMDENKER</div>
+          <div class="cfg-val">Keine Produkte — Systeme und Funktionen.</div>
+          <div class="cfg-desc">Konzepte die über das Projekt hinaus tragen. Über Standorte, über Betreiber, über Zeit.</div>
+        </div>
+        <div class="config-card anim">
+          <div class="cfg-key">VERTIKALE_TIEFE</div>
+          <div class="cfg-val">Vom Unterputzrohr bis zur Strategie.</div>
+          <div class="cfg-desc">Jede Stufe selbst durchlaufen, kein Bruch in der Kette. Eine Glaubwürdigkeit, die man sich nicht anlesen kann.</div>
+        </div>
+        <div class="config-card anim">
+          <div class="cfg-key">BAUHERRENSEITE</div>
+          <div class="cfg-val">Ich sitze am richtigen Tisch.</div>
+          <div class="cfg-desc">Ich weiss was Planer nicht wissen und was Betreiber brauchen — weil ich beides war.</div>
+        </div>
+        <div class="config-card anim">
+          <div class="cfg-key">NORMFEST · UNABHÄNGIG · INTEGRAL</div>
+          <div class="cfg-val">SIA · KBOB · GA Fachverbände</div>
+          <div class="cfg-desc">Herstellerunabhängige Planung, QS Mandate, technische Koordination über alle Systeme und Gewerke.</div>
+        </div>
+        <div class="config-card anim">
+          <div class="cfg-key">MEHRWERT_FOKUS</div>
+          <div class="cfg-val">Nachhaltige Lösungen die wirklich funktionieren.</div>
+          <div class="cfg-desc">Nicht Resultate die gut aussehen — vor Etappensieg.</div>
+        </div>
+        <div class="config-card anim">
+          <div class="cfg-key">EHRLICHKEIT := HIGH_PRIO</div>
+          <div class="cfg-val">Ich sage was ist, nicht was man hören will.</div>
+          <div class="cfg-desc">Im Projekt, in der Beratung, in der Zusammenarbeit.</div>
+        </div>
+        <div class="config-card anim">
+          <div class="cfg-key">SYSTEMEFFIZIENZ · RESILIENZ</div>
+          <div class="cfg-val">Systeme müssen laufen wenn es drauf ankommt.</div>
+          <div class="cfg-desc">Effizienz und Ausfallsicherheit sind keine Gegensätze.</div>
+        </div>
+        <div class="config-card anim">
+          <div class="cfg-key">ERFAHRUNGSDICHTE</div>
+          <div class="cfg-val">Kein Lehrbuch ersetzt das. Film ab.</div>
+          <div class="cfg-desc">30 Jahre. 7'500 Arbeitstage. Es gibt nur wenig ideale Lösungen, aber unendliche Irrwege. Ich kenne die meisten davon.</div>
+        </div>
+        <div class="config-card anim">
+          <div class="cfg-key">INTEGRALES DENKEN · ALLE LAGER</div>
+          <div class="cfg-val">Technik. Planung. Betrieb. Bauherrschaft.</div>
+          <div class="cfg-desc">Ich war auf jeder Seite des Tisches. Wer nur eine Seite kennt, optimiert für sich. Ich optimiere für das System.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── KENNZAHLEN ── -->
+  <section id="kennzahlen">
+    <div class="wrap">
+      <div class="sec-label anim">Messwerte</div>
+      <h2 class="anim">Zahlen die sprechen</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card anim">
+          <div class="kpi-val" data-target="2000">0</div>
+          <div class="kpi-unit">Inbetriebnahmen</div>
+          <div class="kpi-desc">GA-Anlagen gemacht oder geleitet, schweizweit. Raumregler nicht mitgezählt.</div>
+        </div>
+        <div class="kpi-card anim">
+          <div class="kpi-val" data-target="30">0</div>
+          <div class="kpi-unit">Jahre</div>
+          <div class="kpi-desc">Gebäudeautomation, jede Stufe selbst durchlaufen</div>
+        </div>
+        <div class="kpi-card anim">
+          <div class="kpi-val" data-target="20">0</div>
+          <div class="kpi-unit">Jahre Planung</div>
+          <div class="kpi-desc">Integrale GA Planung und techn. Koordination</div>
+        </div>
+        <div class="kpi-card anim">
+          <div class="kpi-val" data-target="14">0</div>
+          <div class="kpi-unit">Jahre Siemens</div>
+          <div class="kpi-desc">Building Technologies (Landis & Staefa)</div>
+        </div>
+        <div class="kpi-card anim">
+          <div class="kpi-val" data-target="7">0</div>
+          <div class="kpi-unit">Karrierestufen</div>
+          <div class="kpi-desc">Vom Elektromonteur bis zur Fachbereichsleitung</div>
+        </div>
+        <div class="kpi-card anim">
+          <div class="kpi-val" data-target="1">0</div>
+          <div class="kpi-unit">Gesamtsicht</div>
+          <div class="kpi-desc">Technik, Planung, Betrieb und Bauherrschaft in einem Kopf</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROJEKTE ── -->
+  <section id="projekte">
+    <div class="wrap">
+      <div class="sec-label anim">Prozessliste</div>
+      <h2 class="anim">Ausgewählte Projekte</h2>
+      <div class="proj-scroll anim">
+        <table class="proj-table">
+          <thead>
+            <tr>
+              <th>Projekt</th>
+              <th>Kontext</th>
+              <th>Funktion</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="proj-name">LUKS Gruppe</td>
+              <td class="proj-ctx">Neubau Luzern, Wolhusen, Sursee, Nidwalden</td>
+              <td class="proj-role">Leiter Gebäudeautomation und Systeme der LUKS Gruppe</td>
+              <td><span class="badge badge-live"><span class="badge-dot"></span>AKTIV</span></td>
+            </tr>
+            <tr>
+              <td class="proj-name">Bürgenstock Hotel Resort</td>
+              <td class="proj-ctx">Resort-Areal — Grossanlage, integral</td>
+              <td class="proj-role">Übergeordneter GA Konzeptplaner Areal</td>
+              <td><span class="badge badge-done"><span class="badge-dot"></span>DONE</span></td>
+            </tr>
+            <tr>
+              <td class="proj-name">Hürlimann Areal Zürich</td>
+              <td class="proj-ctx">Areal — Grossanlage, integral</td>
+              <td class="proj-role">Übergeordneter GA Konzeptplaner Areal</td>
+              <td><span class="badge badge-done"><span class="badge-dot"></span>DONE</span></td>
+            </tr>
+            <tr>
+              <td class="proj-name">armasuisse Standorte</td>
+              <td class="proj-ctx">Sicherheitsrelevante Bundesbauten, Schweiz</td>
+              <td class="proj-role">GA Planung und techn. Koordination</td>
+              <td><span class="badge badge-done"><span class="badge-dot"></span>DONE</span></td>
+            </tr>
+            <tr>
+              <td class="proj-name">RUAG Real Estate</td>
+              <td class="proj-ctx">Schweizweite Liegenschaftsinfrastruktur</td>
+              <td class="proj-role">Leitung Haustechnik & Infrastruktur CH, GA Standardisierung, pbFM</td>
+              <td><span class="badge badge-done"><span class="badge-dot"></span>DONE</span></td>
+            </tr>
+            <tr>
+              <td class="proj-name">Post Hauptsitz Wankdorf</td>
+              <td class="proj-ctx">Grossprojekt öffentlich, Bern</td>
+              <td class="proj-role">QS Mandat, Bauherrenbegleitung, Konzeptplaner Leitebene</td>
+              <td><span class="badge badge-done"><span class="badge-dot"></span>DONE</span></td>
+            </tr>
+            <tr>
+              <td class="proj-name">Militärische Spezialbauten</td>
+              <td class="proj-ctx">Bundesinfrastruktur, Schweiz</td>
+              <td class="proj-role">Energiemonitoring, Betriebskonzept GA</td>
+              <td><span class="badge badge-done"><span class="badge-dot"></span>DONE</span></td>
+            </tr>
+            <tr>
+              <td class="proj-name">Flughafen Zürich</td>
+              <td class="proj-ctx">Betriebskonzept GA und BACnet Multivendor</td>
+              <td class="proj-role">Consulting</td>
+              <td><span class="badge badge-done"><span class="badge-dot"></span>DONE</span></td>
+            </tr>
+            <tr>
+              <td class="proj-name">Siemens Labor Zug – TH1C</td>
+              <td class="proj-ctx">Musteranlage, Siemens Spezial-Projekt</td>
+              <td class="proj-role">GA Planer</td>
+              <td><span class="badge badge-done"><span class="badge-dot"></span>DONE</span></td>
+            </tr>
+            <tr>
+              <td class="proj-name">Dolder Grand Zürich</td>
+              <td class="proj-ctx">Luxushotel, Gesamterneuerung GA</td>
+              <td class="proj-role">Projektleitung als GF</td>
+              <td><span class="badge badge-done"><span class="badge-dot"></span>DONE</span></td>
+            </tr>
+            <tr>
+              <td class="proj-name">Main Tower Zürich, Thurgauerstrasse</td>
+              <td class="proj-ctx">Hochhaus, Büro- und Mischnutzung</td>
+              <td class="proj-role">GA Projektleitung</td>
+              <td><span class="badge badge-done"><span class="badge-dot"></span>DONE</span></td>
+            </tr>
+            <tr>
+              <td class="proj-name">KKL Luzern</td>
+              <td class="proj-ctx">Kultur- und Kongresszentrum</td>
+              <td class="proj-role">IBN Gebäudeautomation (Siemens)</td>
+              <td><span class="badge badge-done"><span class="badge-dot"></span>DONE</span></td>
+            </tr>
+            <tr>
+              <td class="proj-name">Diverse Spitäler CH</td>
+              <td class="proj-ctx">Akutspitäler, Rehakliniken, mehrere Kantone</td>
+              <td class="proj-role">Planung, IBN, Projektleitung, QS</td>
+              <td><span class="badge badge-done"><span class="badge-dot"></span>DONE</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── KARRIERE ── -->
+  <section id="karriere">
+    <div class="wrap">
+      <div class="sec-label anim">Signalpfad</div>
+      <h2 class="anim">Karriere — von Grund auf</h2>
+      <div class="career-bus">
+        <div class="c-node active anim-x">
+          <div class="c-item">
+            <div class="c-period">2021 — HEUTE</div>
+            <div class="c-role">Leiter Gebäudeautomation und Systeme</div>
+            <div class="c-company">LUKS Gruppe, Luzern</div>
+            <div class="c-level">Fachliche Bereichsleitung · Planung · Koordination · Spitalgruppe</div>
+          </div>
+        </div>
+        <div class="c-node anim-x">
+          <div class="c-item">
+            <div class="c-period">2017 — 2021</div>
+            <div class="c-role">Senior Projektleiter GA / Techn. Koordination, Bereichsaufbau</div>
+            <div class="c-company">Thomas Lüem Partner AG, Baar</div>
+            <div class="c-level">Planung · Koordination · Beratung</div>
+          </div>
+        </div>
+        <div class="c-node anim-x">
+          <div class="c-item">
+            <div class="c-period">2016 — 2017</div>
+            <div class="c-role">Leiter Haustechnik Infrastruktur CH</div>
+            <div class="c-company">RUAG Real Estate AG</div>
+            <div class="c-level">Planung · Koordination</div>
+          </div>
+        </div>
+        <div class="c-node anim-x">
+          <div class="c-item">
+            <div class="c-period">2010 — 2016</div>
+            <div class="c-role">Senior Projektleiter GA, MSRL Planer</div>
+            <div class="c-company">Alfacel AG, Kriens</div>
+            <div class="c-level">Planung · Koordination</div>
+          </div>
+        </div>
+        <div class="c-node anim-x">
+          <div class="c-item">
+            <div class="c-period">2008 — 2010</div>
+            <div class="c-role">Geschäftsführer Building Automation</div>
+            <div class="c-company">Panthek Building Automation AG, Zürich</div>
+            <div class="c-level">Führung</div>
+          </div>
+        </div>
+        <div class="c-node anim-x">
+          <div class="c-item">
+            <div class="c-period">2007 — 2008</div>
+            <div class="c-role">Projektleiter MSRL</div>
+            <div class="c-company">Scherler AG, Luzern</div>
+            <div class="c-level">Planer</div>
+          </div>
+        </div>
+        <div class="c-node anim-x">
+          <div class="c-item">
+            <div class="c-period">2000 — 2007</div>
+            <div class="c-role">Serviceprojektleiter / Projektleiter & Modernisierung</div>
+            <div class="c-company">Siemens Building Technologies</div>
+            <div class="c-level">Engineering · Serviceverkauf</div>
+          </div>
+        </div>
+        <div class="c-node anim-x">
+          <div class="c-item">
+            <div class="c-period">1994 — 2000</div>
+            <div class="c-role">Servicetechniker Gebäudeautomation</div>
+            <div class="c-company">Siemens (Landis & Staefa), Reussbühl</div>
+            <div class="c-level">Techniker · Programmierer</div>
+          </div>
+        </div>
+        <div class="c-node anim-x">
+          <div class="c-item">
+            <div class="c-period">1990 — 1994</div>
+            <div class="c-role">Elektromonteur</div>
+            <div class="c-company">CKW · Hans Leutenegger AG · Landis & Gyr</div>
+            <div class="c-level">Installation</div>
+          </div>
+        </div>
+        <div class="c-node fundament anim-x">
+          <div class="c-item">
+            <div class="c-period">1986 — 1990 · Fundament</div>
+            <div class="c-role">Elektromonteur — Lehre mit Auszeichnung</div>
+            <div class="c-company">CKW · Ehren-Urkunde Kanton Luzern</div>
+            <div class="c-level">Grundstein</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VERFÜGBARKEIT ── -->
+  <section id="verfuegbarkeit">
+    <div class="wrap">
+      <div class="sec-label anim">Serviceangebot</div>
+      <h2 class="anim">Verfügbarkeit</h2>
+      <p class="body-text anim" style="margin-bottom:32px;">
+        Neben meiner Haupttätigkeit bin ich, nach Abklärung im Einzelfall, offen für ausgewählte Zusammenarbeiten:
+      </p>
+      <div class="svc-grid">
+        <div class="svc-card anim">
+          <div class="svc-id">SVC-01</div>
+          <div>
+            <div class="svc-title">Fachexpertise & Gutachten</div>
+            <div class="svc-desc">Beurteilung von GA Konzepten, Systemarchitekturen, QS Mandaten</div>
+          </div>
+        </div>
+        <div class="svc-card anim">
+          <div class="svc-id">SVC-02</div>
+          <div>
+            <div class="svc-title">Normen & Gremienarbeit</div>
+            <div class="svc-desc">SIA · KBOB · GA Fachverbände — wo fundierte und echte Praxiserfahrung gefragt ist. Da wo heute Theorie und Realität auseinanderklaffen.</div>
+          </div>
+        </div>
+        <div class="svc-card anim">
+          <div class="svc-id">SVC-03</div>
+          <div>
+            <div class="svc-title">Wissenstransfer</div>
+            <div class="svc-desc">Fachreferate · Workshops · Weiterbildung im GA-Bereich</div>
+          </div>
+        </div>
+        <div class="svc-card anim">
+          <div class="svc-id">SVC-04</div>
+          <div>
+            <div class="svc-title">Resilienz & Notfallbetrieb</div>
+            <div class="svc-desc">Wie lange läuft Ihr Gebäude, wenn Netz, Lieferanten oder Fachleute ausfallen? Notfallbetriebskonzepte, Autonomiebetrieb und Ausfallsicherheit für GA-Infrastruktur und Betrieb.</div>
+          </div>
+        </div>
+        <div class="svc-card anim">
+          <div class="svc-id">SVC-05</div>
+          <div>
+            <div class="svc-title">Transition & Nachfolge</div>
+            <div class="svc-desc">Wenn der erfahrene GA-Planer geht und niemand mehr versteht was gebaut wurde. Altanlagen, Protokolle, Systemwissen sichern.</div>
+          </div>
+        </div>
+        <div class="svc-card anim">
+          <div class="svc-id">SVC-06</div>
+          <div>
+            <div class="svc-title">Think Tanks & Austausch</div>
+            <div class="svc-desc">Fachgruppen, Denkrunden und Gespräche mit Menschen, die Weitblick und Tiefgang mitbringen. Von der Vision bis zur Klemme.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REFERENZEN ── -->
+  <section id="referenzen">
+    <div class="wrap">
+      <div class="sec-label anim">Externe Validierung</div>
+      <h2 class="anim">Referenzen</h2>
+      <div class="quote-grid">
+        <div class="quote-card anim">
+          <div class="q-text">Hervorragende Fachkenntnisse, unternehmerisches Denken, Kreativität bei unkonventionellen Lösungen.</div>
+          <div class="q-src">— Siemens Building Technologies</div>
+        </div>
+        <div class="quote-card anim">
+          <div class="q-text">Verbesserungspotenzial sofort erkannt, eigene Ideen vertreten und durchgesetzt.</div>
+          <div class="q-src">— RUAG Real Estate AG</div>
+        </div>
+        <div class="quote-card anim">
+          <div class="q-text">Fundiertes Fachwissen und umfangreiche Erfahrung — fand sich in komplexen Aufgabenstellungen rasch zurecht.</div>
+          <div class="q-src">— Alfacel AG, Planung Gebäudeautomation</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HASHTAGS ── -->
+  <section id="hashtags">
+    <div class="wrap">
+      <div class="sec-label anim">Tags</div>
+      <h2 class="anim">Kompetenzbereiche</h2>
+      <div class="hashtag-cloud anim" id="hashtag-cloud"></div>
+    </div>
+  </section>
+
+  <!-- ── KONTAKT ── -->
+  <section id="kontakt">
+    <div class="wrap">
+      <div class="sec-label anim">Verbindungsaufbau</div>
+      <h2 class="anim">Kontakt</h2>
+      <div class="anim">
+        <div class="no-network">
+          <span>// STATUS:</span> Kein LinkedIn · Kein Xing · Direkter Kontakt bevorzugt
+        </div>
+      </div>
+      <div class="anim">
+        <a href="#kontakt" class="mail-link js-mail">Mail-Adresse anzeigen</a>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="footer">
+        <span>Peter Bühler · Luzern · Schweiz · 11/2026</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+// ── E-MAIL (erst im Browser zusammengesetzt, nicht als Klartext im HTML) ──
+(function() {
+  const addr = ['em.mp', 'hcepelhub'].map(p => p.split('').reverse().join('')).reverse().join('@');
+  const label = 'Mail-Adresse anzeigen';
+  document.querySelectorAll('.js-mail').forEach(a => {
+    let pinned = false; // nach Tippen/Klick bleibt die Adresse sichtbar
+    const show = () => { a.textContent = addr; a.href = 'mai' + 'lto:' + addr; };
+    const hide = () => { if (!pinned) { a.textContent = label; a.href = '#kontakt'; } };
+    hide();
+    a.addEventListener('mouseenter', show);
+    a.addEventListener('focus', show);
+    a.addEventListener('mouseleave', hide);
+    a.addEventListener('blur', hide);
+    // Touch-Geräte kennen kein Hover: erstes Tippen zeigt die Adresse, zweites öffnet das Mailprogramm
+    a.addEventListener('touchstart', () => {
+      if (!pinned) { pinned = true; show(); a.dataset.justShown = '1'; }
+    }, { passive: true });
+    a.addEventListener('click', e => {
+      if (a.dataset.justShown) { delete a.dataset.justShown; e.preventDefault(); }
+      else { pinned = true; show(); }
+    });
+  });
+})();
+
+// ── HASHTAGS ──
+const ALL_TAGS = [
+  'Gebäudeautomation','IntegralePlanung','Systemdenker','TechnischerKoordinator',
+  'Bauherrenvertretung','Konzeptplanung','GAStrategie','Systemarchitektur',
+  'Systemintegration','QSMandat','Normenarbeit','SIA108','KBOB','Spitalbau',
+  'Grossbauprojekt','Komplexbau','Modernisierung','Migration','Inbetriebnahme',
+  'Leitsysteme','Raumautomation','Regeltechnik','MSRL','HLKKSE','BACnet','KNX',
+  'Resilienz','Betriebssicherheit','Ausfallsicherheit','Notfallkonzept','Redundanz',
+  'BusinessContinuity','Risikoanalyse','Energiemonitoring','Energieeffizienz',
+  'Betriebsoptimierung','Lifecycle','FacilityManagement','Qualitätssicherung',
+  'Wissenstransfer','Leadership','VonGrundAuf','VerstehenVereinfachenHandeln'
+];
+
+// ── HASHTAG CLOUD (bottom section) ──
+(function() {
+  const container = document.getElementById('hashtag-cloud');
+  ALL_TAGS.forEach(tag => {
+    const el = document.createElement('span');
+    el.className = 'htag-item';
+    el.textContent = '#' + tag;
+    container.appendChild(el);
+  });
+})();
+
+// ── HERO FLOATING TAGS (above name) ──
+(function() {
+  const container = document.getElementById('hero-tagcloud');
+  // Select representative subset for hero cloud
+  const heroTags = [
+    'Gebäudeautomation','Systemdenker','BACnet','KNX','Spitalbau','SmartBuilding',
+    'Bauherrschaft','Systemarchitektur','IntegralePlanung','Betriebskonzept','LUKSGruppe',
+    'Resilienz','30JahreErfahrung','GAStrategie','QSMandat','Leitsysteme',
+    'Automationsebene','TechnischerKoordinator','GebäudeautomationExperte','KBOB'
+  ];
+  // Spread across the container width
+  const positions = [
+    {left:'0%',   top:'0%'},  {left:'8%',  top:'60%'}, {left:'18%', top:'10%'},
+    {left:'25%',  top:'75%'}, {left:'33%', top:'25%'}, {left:'42%', top:'55%'},
+    {left:'50%',  top:'5%'},  {left:'58%', top:'70%'}, {left:'65%', top:'30%'},
+    {left:'72%',  top:'80%'}, {left:'78%', top:'15%'}, {left:'84%', top:'60%'},
+    {left:'90%',  top:'35%'}, {left:'95%', top:'75%'}, {left:'3%',  top:'85%'},
+    {left:'14%',  top:'45%'}, {left:'46%', top:'88%'}, {left:'55%', top:'45%'},
+    {left:'68%',  top:'90%'}, {left:'88%', top:'5%'}
+  ];
+  function randTag() {
+    return { left: (Math.random() * 88 + 2).toFixed(1) + '%',
+             top:  (Math.random() * 42 + 3).toFixed(1) + '%' }; // obere Hälfte
+  }
+  heroTags.forEach((tag, i) => {
+    const pos = randTag();
+    const el = document.createElement('span');
+    el.className = 'htag';
+    el.textContent = '#' + tag;
+    el.style.left = pos.left;
+    el.style.top  = pos.top;
+    el.style.animationDelay = (i * 0.55) + 's';
+    el.style.animationDuration = (6 + (i % 5)) + 's';
+    el.addEventListener('animationiteration', () => {
+      const p = randTag();
+      el.style.left = p.left;
+      el.style.top  = p.top;
+    });
+    container.appendChild(el);
+  });
+})();
+
+// ── HERO GRAPHIC ANIMATIONS ──
+(function() {
+  const container = document.getElementById('hero-tagcloud');
+  const icons = [
+    { // Pumpe — drehendes Laufrad
+      delay: 1.2, dur: 12,
+      pos: {left:'11%', top:'35%'},
+      html: `<svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="#00d4ff" stroke-width="0.8" opacity="0.25"/>
+        <g class="ga-spin">
+          <path d="M12 12 C10.5 7.5 7 7 6.5 9.5 C9 10.5 12 12 12 12Z" fill="#00d4ff" opacity="0.75"/>
+          <path d="M12 12 C16.5 10.5 17 7 14.5 6.5 C13.5 9 12 12 12 12Z" fill="#00d4ff" opacity="0.75"/>
+          <path d="M12 12 C14 16.5 16.5 17 17.5 14.5 C15 13 12 12 12 12Z" fill="#00d4ff" opacity="0.75"/>
+        </g>
+        <circle cx="12" cy="12" r="1.8" fill="#00d4ff"/>
+      </svg>`
+    },
+    { // Trend — laufende Linie
+      delay: 3.1, dur: 10,
+      pos: {left:'28%', top:'52%'},
+      html: `<svg width="44" height="26" viewBox="0 0 44 26" fill="none">
+        <polyline points="0,20 7,12 14,17 21,6 28,14 35,3 44,8"
+          stroke="#00d4ff" stroke-width="1.5" fill="none"
+          stroke-dasharray="72" class="ga-dash"/>
+        <circle cx="44" cy="8" r="2.2" fill="#00d4ff" class="ga-blink"/>
+      </svg>`
+    },
+    { // Lüftung — rotierende Flügel
+      delay: 0.5, dur: 13,
+      pos: {left:'44%', top:'22%'},
+      html: `<svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="#00d4ff" stroke-width="0.8" opacity="0.2"/>
+        <g class="ga-spin">
+          <path d="M12 12 Q10 5 7 6 Q8 10 12 12Z" fill="#00d4ff" opacity="0.65"/>
+          <path d="M12 12 Q19 10 18 7 Q14 8 12 12Z" fill="#00d4ff" opacity="0.65"/>
+          <path d="M12 12 Q14 19 17 18 Q16 14 12 12Z" fill="#00d4ff" opacity="0.65"/>
+          <path d="M12 12 Q5 14 6 17 Q10 16 12 12Z" fill="#00d4ff" opacity="0.65"/>
+        </g>
+        <circle cx="12" cy="12" r="2.2" fill="#00d4ff"/>
+      </svg>`
+    },
+    { // Sollwert — schwingender Zeiger
+      delay: 2.4, dur: 11,
+      pos: {left:'60%', top:'60%'},
+      html: `<svg width="32" height="22" viewBox="0 0 32 22" fill="none">
+        <path d="M2 20 A14 14 0 0 1 30 20" stroke="#00d4ff" stroke-width="1.2" opacity="0.4"/>
+        <line x1="8" y1="20" x2="10" y2="20" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
+        <line x1="28" y1="20" x2="26" y2="20" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
+        <g class="ga-needle" style="transform-origin:16px 20px">
+          <line x1="16" y1="20" x2="16" y2="6" stroke="#00d4ff" stroke-width="1.5"/>
+          <circle cx="16" cy="6" r="1.5" fill="#00d4ff"/>
+        </g>
+        <circle cx="16" cy="20" r="2" fill="#00d4ff"/>
+      </svg>`
+    },
+    { // Schalter — Toggle
+      delay: 4.8, dur: 9,
+      pos: {left:'76%', top:'40%'},
+      html: `<svg width="36" height="22" viewBox="0 0 36 22" fill="none">
+        <rect x="1" y="5" width="34" height="12" rx="6" stroke="#00d4ff" stroke-width="1.2" opacity="0.5"/>
+        <g class="ga-tog">
+          <circle cx="8" cy="11" r="4.5" fill="#00d4ff" opacity="0.85"/>
+        </g>
+        <text x="6" y="20" font-size="5" fill="#00d4ff" opacity="0.5" font-family="monospace">0</text>
+        <text x="25" y="20" font-size="5" fill="#00d4ff" opacity="0.5" font-family="monospace">1</text>
+      </svg>`
+    },
+    { // Licht — pulsierendes Licht
+      delay: 6.2, dur: 14,
+      pos: {left:'88%', top:'70%'},
+      html: `<svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="4" fill="#00d4ff" class="ga-pulse"/>
+        <line x1="12" y1="2"  x2="12" y2="5"  stroke="#00d4ff" stroke-width="1.2" class="ga-pulse"/>
+        <line x1="12" y1="19" x2="12" y2="22" stroke="#00d4ff" stroke-width="1.2" class="ga-pulse"/>
+        <line x1="2"  y1="12" x2="5"  y2="12" stroke="#00d4ff" stroke-width="1.2" class="ga-pulse"/>
+        <line x1="19" y1="12" x2="22" y2="12" stroke="#00d4ff" stroke-width="1.2" class="ga-pulse"/>
+        <line x1="4.9" y1="4.9" x2="7.1" y2="7.1" stroke="#00d4ff" stroke-width="1" class="ga-pulse"/>
+        <line x1="16.9" y1="16.9" x2="19.1" y2="19.1" stroke="#00d4ff" stroke-width="1" class="ga-pulse"/>
+        <line x1="4.9" y1="19.1" x2="7.1" y2="16.9" stroke="#00d4ff" stroke-width="1" class="ga-pulse"/>
+        <line x1="16.9" y1="7.1" x2="19.1" y2="4.9" stroke="#00d4ff" stroke-width="1" class="ga-pulse"/>
+      </svg>`
+    },
+    { // IoT Signal — Wellen
+      delay: 1.9, dur: 12,
+      pos: {left:'7%', top:'65%'},
+      html: `<svg width="30" height="26" viewBox="0 0 30 26" fill="none">
+        <circle cx="8" cy="18" r="2.5" fill="#00d4ff"/>
+        <g style="transform-origin:8px 18px; transform-box:fill-box">
+          <circle cx="8" cy="18" r="5"  fill="none" stroke="#00d4ff" stroke-width="1.2" class="ga-w1"/>
+          <circle cx="8" cy="18" r="9"  fill="none" stroke="#00d4ff" stroke-width="1"   class="ga-w2"/>
+          <circle cx="8" cy="18" r="13" fill="none" stroke="#00d4ff" stroke-width="0.7" class="ga-w3"/>
+        </g>
+      </svg>`
+    },
+    { // Alarm — Blinken
+      delay: 5.5, dur: 10,
+      pos: {left:'52%', top:'78%'},
+      html: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" class="ga-blink">
+        <path d="M12 3 L22 20 L2 20 Z" stroke="#00d4ff" stroke-width="1.4" fill="rgba(0,212,255,0.1)"/>
+        <line x1="12" y1="10" x2="12" y2="15" stroke="#00d4ff" stroke-width="1.5"/>
+        <circle cx="12" cy="17.5" r="1" fill="#00d4ff"/>
+      </svg>`
+    },
+    { // BACnet Datenpunkt — fliesst auf Busleitung
+      delay: 3.8, dur: 13,
+      pos: {left:'35%', top:'82%'},
+      html: `<svg width="60" height="18" viewBox="0 0 60 18" fill="none">
+        <line x1="0" y1="9" x2="60" y2="9" stroke="#00d4ff" stroke-width="0.8" opacity="0.3"/>
+        <line x1="0" y1="9" x2="60" y2="9"
+          stroke="#00d4ff" stroke-width="1.5" opacity="0.8"
+          stroke-dasharray="12 48" class="ga-flow"/>
+        <rect x="0" y="4" width="18" height="10" rx="2"
+          stroke="#00d4ff" stroke-width="0.8" fill="rgba(0,212,255,0.07)"/>
+        <text x="2" y="12" font-size="5.5" fill="#00d4ff" opacity="0.8" font-family="monospace">BACnet</text>
+      </svg>`
+    }
+  ];
+
+  // Shuffle positions randomly on each load
+  function randPos() {
+    return { left: (Math.random() * 88 + 2).toFixed(1) + '%',
+             top:  (Math.random() * 40 + 52).toFixed(1) + '%' }; // untere Hälfte
+  }
+
+  icons.forEach(ic => {
+    const pos  = randPos();
+    const wrap = document.createElement('div');
+    wrap.className = 'htag-svg';
+    wrap.innerHTML = ic.html;
+    wrap.style.left = pos.left;
+    wrap.style.top  = pos.top;
+    wrap.style.animationDelay    = ic.delay + 's';
+    wrap.style.animationDuration = ic.dur   + 's';
+    // Bei jedem Einblend-Impuls neue zufällige Position (Opacity=0 am Anfang jeder Iteration)
+    wrap.addEventListener('animationiteration', () => {
+      const p = randPos();
+      wrap.style.left = p.left;
+      wrap.style.top  = p.top;
+    });
+    container.appendChild(wrap);
+  });
+})();
+
+// ── CLOCK ──
+(function() {
+  const el = document.getElementById('sb-clock');
+  function tick() {
+    const n = new Date();
+    el.textContent = [n.getHours(),n.getMinutes(),n.getSeconds()]
+      .map(v => String(v).padStart(2,'0')).join(':');
+  }
+  tick(); setInterval(tick, 1000);
+})();
+
+// ── CANVAS NETWORK — lifecycle particles ──
+(function() {
+  const cvs = document.getElementById('bg-canvas');
+  const ctx  = cvs.getContext('2d');
+  let W, H;
+
+  const TARGET   = 55;   // target population
+  const DIST     = 175;  // max connection distance
+  const FADE_IN  = 3000; // ms to appear
+  const LIVE_MIN = 9000; // min live time
+  const LIVE_RND = 8000; // extra random live time
+  const FADE_OUT = 5000; // ms to vanish
+  const SPAWN_INTERVAL = 600; // ms between spawns
+
+  let nodes = [];
+  let lastSpawn = 0;
+
+  function resize() {
+    W = cvs.width  = window.innerWidth;
+    H = cvs.height = window.innerHeight;
+  }
+
+  function spawn() {
+    const now = Date.now();
+    nodes.push({
+      x:     Math.random() * W,
+      y:     Math.random() * H,
+      vx:    (Math.random() - .5) * .22,
+      vy:    (Math.random() - .5) * .22,
+      phase: Math.random() * Math.PI * 2,
+      born:  now,
+      // when to start dying
+      dieAt: now + FADE_IN + LIVE_MIN + Math.random() * LIVE_RND
+    });
+  }
+
+  // Pre-populate without birth animation on first load
+  function init() {
+    nodes = [];
+    const past = Date.now() - FADE_IN - 1000; // already fully born
+    for (let i = 0; i < TARGET; i++) {
+      nodes.push({
+        x:     Math.random() * W,
+        y:     Math.random() * H,
+        vx:    (Math.random() - .5) * .22,
+        vy:    (Math.random() - .5) * .22,
+        phase: Math.random() * Math.PI * 2,
+        born:  past - Math.random() * 4000,
+        dieAt: Date.now() + LIVE_MIN + Math.random() * LIVE_RND
+      });
+    }
+  }
+
+  function getAlpha(n) {
+    const now = Date.now();
+    const age = now - n.born;
+    // Fade in
+    if (age < FADE_IN) return age / FADE_IN;
+    // Alive
+    if (now < n.dieAt) return 1.0;
+    // Fade out
+    const dying = now - n.dieAt;
+    if (dying >= FADE_OUT) return 0;
+    return 1.0 - dying / FADE_OUT;
+  }
+
+  function draw() {
+    const now = Date.now();
+    ctx.clearRect(0, 0, W, H);
+
+    // Remove fully dead nodes
+    nodes = nodes.filter(n => getAlpha(n) > 0);
+
+    // Spawn replacements
+    const dying = nodes.filter(n => now >= n.dieAt).length;
+    const needed = TARGET - (nodes.length - dying);
+    if (now - lastSpawn > SPAWN_INTERVAL && needed > 0) {
+      spawn();
+      lastSpawn = now;
+    }
+
+    // Move
+    for (const p of nodes) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < -10) p.x = W + 10;
+      if (p.x > W+10) p.x = -10;
+      if (p.y < -10) p.y = H + 10;
+      if (p.y > H+10) p.y = -10;
+    }
+
+    const t = now / 1000;
+
+    // Draw lines
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d  = Math.sqrt(dx*dx + dy*dy);
+        if (d < DIST) {
+          const distFade = 1 - d / DIST;
+          const alpha = Math.min(getAlpha(a), getAlpha(b)) * distFade * 0.18;
+          if (alpha < 0.005) continue;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(0,190,230,${alpha})`;
+          ctx.lineWidth = .6;
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw dots
+    for (const p of nodes) {
+      const a = getAlpha(p);
+      if (a <= 0) continue;
+      const pulse = .35 + .18 * Math.sin(t * 1.1 + p.phase);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,212,255,${a * pulse})`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  resize(); init(); draw();
+  window.addEventListener('resize', () => { resize(); init(); });
+})();
+
+// ── TYPEWRITER ──
+(function() {
+  const el = document.getElementById('typewriter');
+  const lines = [
+    'Von der Schraube bis zur Strategie.',
+    '30 Jahre, keine Stufe übersprungen.'
+  ];
+  let li = 0, ci = 0, del = false;
+  const cur = '<span class="cursor"></span>';
+
+  function type() {
+    const line = lines[li];
+    if (!del) {
+      ci++;
+      el.innerHTML = line.slice(0, ci) + cur;
+      if (ci === line.length) {
+        if (li === lines.length - 1) return;
+        setTimeout(() => { del = true; type(); }, 2600);
+        return;
+      }
+      setTimeout(type, 52);
+    } else {
+      ci--;
+      el.innerHTML = line.slice(0, ci) + cur;
+      if (ci === 0) {
+        del = false;
+        li = (li + 1) % lines.length;
+        setTimeout(type, 380);
+        return;
+      }
+      setTimeout(type, 22);
+    }
+  }
+  setTimeout(type, 900);
+})();
+
+// ── SCROLL ANIMATIONS ──
+(function() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.anim, .anim-x').forEach(el => obs.observe(el));
+
+  // Stagger children within grid containers
+  document.querySelectorAll('.config-grid, .kpi-grid, .svc-grid, .quote-grid, .career-bus').forEach(parent => {
+    parent.querySelectorAll('.anim, .anim-x').forEach((child, i) => {
+      child.style.transitionDelay = (i * 70) + 'ms';
+    });
+  });
+})();
+
+// ── KPI COUNTERS ──
+(function() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target, target = +el.dataset.target;
+      const t0 = performance.now();
+      (function frame(now) {
+        const p = Math.min((now - t0) / 1600, 1);
+        el.textContent = Math.round((1 - Math.pow(1-p, 3)) * target);
+        if (p < 1) requestAnimationFrame(frame);
+        else el.textContent = target;
+      })(t0);
+      obs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-target]').forEach(el => obs.observe(el));
+})();
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "8c7ea8a3b52544f39f1e93ed25d17dd5"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
