@@ -568,11 +568,22 @@
     }
     .anim-x.in { opacity:1; transform:translateX(0); }
 
+    /* ── WENIGER BEWEGUNG (Systemeinstellung) ── */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-tagcloud { display:none; }
+      .sb-dot { animation:none; }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width:720px) {
       .wrap { padding:0 20px; }
       section { padding:64px 0; }
       .sb-right { display:none; }
+      #statusbar { padding:0 16px; }
+      .sb-left { gap:12px; }
+      .sb-left > span { display:none; }
+      .sb-tag { white-space:nowrap; }
+      .hero-tagcloud { display:none; } /* zu wenig Platz fuer schwebende Tags und Symbole */
       .hero-main { flex-direction:column-reverse; gap:24px; }
       .hero-photo img, .hero-photo-placeholder { width:80px; height:80px; }
       .proj-table th:nth-child(3),
