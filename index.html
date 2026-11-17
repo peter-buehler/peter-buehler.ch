@@ -584,6 +584,11 @@
       .sb-left > span { display:none; }
       .sb-tag { white-space:nowrap; }
       .hero-tagcloud .htag { font-size:10px; } /* auf dem Handy nur wenige Tags/Symbole, siehe Script */
+      /* Lesbarkeit: kleine Schriften auf dem Handy vergroessern */
+      .hero-meta, .hero-nonetwork, .htag-item, .no-network, .c-period { font-size:12px; }
+      .sec-label, .cfg-key, .kpi-unit, .proj-table th, .c-level, .svc-id, .q-src,
+      .footer, .mail-link::before, .hero-scroll { font-size:11px; }
+      .badge { font-size:10px; }
       .hero-main { flex-direction:column-reverse; gap:24px; }
       .hero-photo img, .hero-photo-placeholder { width:80px; height:80px; }
       .proj-table th:nth-child(3),
@@ -697,7 +702,7 @@
         <div class="config-card anim">
           <div class="cfg-key">MEHRWERT_FOKUS</div>
           <div class="cfg-val">Nachhaltige Lösungen die wirklich funktionieren.</div>
-          <div class="cfg-desc">Nicht Resultate die gut aussehen — vor Etappensieg.</div>
+          <div class="cfg-desc">Substanz vor Etappensieg.</div>
         </div>
         <div class="config-card anim">
           <div class="cfg-key">EHRLICHKEIT := HIGH_PRIO</div>
@@ -1117,7 +1122,7 @@ const ALL_TAGS = [
   // Select representative subset for hero cloud
   const heroTags = [
     'Gebäudeautomation','Systemdenker','BACnet','KNX','Spitalbau','SmartBuilding',
-    'Bauherrschaft','Systemarchitektur','IntegralePlanung','Betriebskonzept','LUKSGruppe',
+    'Bauherrschaft','Systemarchitektur','IntegralePlanung','Betriebskonzept','Verfügbarkeit',
     'Resilienz','30JahreErfahrung','GAStrategie','QSMandat','Leitsysteme',
     'Automationsebene','TechnischerKoordinator','GebäudeautomationExperte','KBOB'
   ];
