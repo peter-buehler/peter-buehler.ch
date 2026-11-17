@@ -583,7 +583,7 @@
       .sb-left { gap:12px; }
       .sb-left > span { display:none; }
       .sb-tag { white-space:nowrap; }
-      .hero-tagcloud { display:none; } /* zu wenig Platz fuer schwebende Tags und Symbole */
+      .hero-tagcloud .htag { font-size:10px; } /* auf dem Handy nur wenige Tags/Symbole, siehe Script */
       .hero-main { flex-direction:column-reverse; gap:24px; }
       .hero-photo img, .hero-photo-placeholder { width:80px; height:80px; }
       .proj-table th:nth-child(3),
@@ -1131,12 +1131,18 @@ const ALL_TAGS = [
     {left:'14%',  top:'45%'}, {left:'46%', top:'88%'}, {left:'55%', top:'45%'},
     {left:'68%',  top:'90%'}, {left:'88%', top:'5%'}
   ];
-  function randTag() {
+  const small = window.matchMedia('(max-width:720px)').matches;
+  function randTag(i) {
+    if (small) { // Handy: je ein Tag pro Spalte, obere Zeile des schmalen Bildes
+      return { left: (i * 30 + 2 + Math.random() * 6).toFixed(1) + '%',
+               top:  (8 + Math.random() * 14).toFixed(1) + '%' };
+    }
     return { left: (Math.random() * 88 + 2).toFixed(1) + '%',
              top:  (Math.random() * 42 + 3).toFixed(1) + '%' }; // obere Hälfte
   }
-  heroTags.forEach((tag, i) => {
-    const pos = randTag();
+  const tags = small ? ['Systemdenker','Bauherrschaft','Betriebskonzept'] : heroTags;
+  tags.forEach((tag, i) => {
+    const pos = randTag(i);
     const el = document.createElement('span');
     el.className = 'htag';
     el.textContent = '#' + tag;
@@ -1145,7 +1151,7 @@ const ALL_TAGS = [
     el.style.animationDelay = (i * 0.55) + 's';
     el.style.animationDuration = (6 + (i % 5)) + 's';
     el.addEventListener('animationiteration', () => {
-      const p = randTag();
+      const p = randTag(i);
       el.style.left = p.left;
       el.style.top  = p.top;
     });
@@ -1272,13 +1278,19 @@ const ALL_TAGS = [
   ];
 
   // Shuffle positions randomly on each load
-  function randPos() {
+  const small = window.matchMedia('(max-width:720px)').matches;
+  const list  = small ? [icons[0], icons[3]] : icons; // Handy: Pumpe und Sollwert-Zeiger
+  function randPos(i) {
+    if (small) { // je ein Symbol pro Haelfte, untere Zeile des schmalen Bildes
+      return { left: (10 + i * 45 + Math.random() * 18).toFixed(1) + '%',
+               top:  (42 + Math.random() * 8).toFixed(1) + '%' };
+    }
     return { left: (Math.random() * 88 + 2).toFixed(1) + '%',
              top:  (Math.random() * 40 + 52).toFixed(1) + '%' }; // untere Hälfte
   }
 
-  icons.forEach(ic => {
-    const pos  = randPos();
+  list.forEach((ic, i) => {
+    const pos  = randPos(i);
     const wrap = document.createElement('div');
     wrap.className = 'htag-svg';
     wrap.innerHTML = ic.html;
@@ -1288,7 +1300,7 @@ const ALL_TAGS = [
     wrap.style.animationDuration = ic.dur   + 's';
     // Bei jedem Einblend-Impuls neue zufällige Position (Opacity=0 am Anfang jeder Iteration)
     wrap.addEventListener('animationiteration', () => {
-      const p = randPos();
+      const p = randPos(i);
       wrap.style.left = p.left;
       wrap.style.top  = p.top;
     });
